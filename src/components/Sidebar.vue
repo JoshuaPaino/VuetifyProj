@@ -16,27 +16,22 @@
         prepend-icon="mdi-image"
         title="Color Gallery"
         value="color"
+        @click="selectOption(true)"
       ></VListItem>
       <VListItem
         prepend-icon="mdi-dialpad"
         title="Grayspace Gallery"
         value="gray"
+        @click="selectOption(false)"
       ></VListItem>
     </VList>
   </VNavigationDrawer>
 </template>
 
-<script>
-import { mdiAccount, mdiDelete, mdiPencil, mdiShareVariant } from "@mdi/js"
+<script setup>
+const emits = defineEmits(["selectOption"])
 
-export default {
-  data: () => ({
-    icons: {
-      mdiAccount,
-      mdiPencil,
-      mdiShareVariant,
-      mdiDelete,
-    },
-  }),
+const selectOption = (isColor) => {
+  emits("selectOption", isColor)
 }
 </script>

@@ -3,10 +3,24 @@
     <VRow>
       <VCol v-for="n in 200" cols="3" :key="n">
         <VHover v-slot="{ isHovering, props }">
-          <VCard :elevation="isHovering ? 12 : 2" v-bind="props" @click="1 + 1">
+          <VCard
+            :elevation="isHovering ? 12 : 2"
+            v-bind="props"
+            @click="
+              copyUrl(
+                `https://picsum.photos/500/300?image=${n * 5 + 10}${
+                  p.isWithColor ? '' : '&grayscale'
+                }`
+              )
+            "
+          >
             <VImg
-              :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
-              :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+              :src="`https://picsum.photos/500/300?image=${n * 5 + 10}${
+                p.isWithColor ? '' : '&grayscale'
+              }`"
+              :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}${
+                p.isWithColor ? '' : '&grayscale'
+              }`"
               aspect-ratio="1"
               cover
             >
@@ -25,3 +39,11 @@
     </VRow>
   </VCard>
 </template>
+
+<script setup>
+const p = defineProps(["isWithColor"])
+
+const copyUrl = async (url) => {
+  await navigator.clipboard.writeText(url)
+}
+</script>
